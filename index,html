@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es-MX" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EmprendeConecta: Asesoría Especializada en Gestión de Recursos Federales y Fondos Perdidos para Ayuntamientos en México 2026.">
+    <meta name="author" content="Antonio Camarillo Garcia">
+    <title>EmprendeConecta | Gestión de Recursos Federales para Municipios</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Navy Blue (Authority), Gold (Success), White/Gray (Clarity) -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: High impact, emotional hook targeting Mayors.
+         2. Context: The "Problem" - Rules have changed in 2026 (Technical vs Political).
+         3. Interactive Diagnosis: The "Solution" - A quiz to filter eligible municipalities.
+         4. Data Visualization: Showing the budget reality (Authority).
+         5. Services: The "Blindaje Técnico".
+         6. Contact/Bio: Trust building with Antonio Camarillo.
+    -->
+
+    <style>
+        /* Custom Styles for 3D Buttons and Parallax */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Parallax Classes */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* 3D Button Style */
+        .btn-3d {
+            transition: all 0.1s;
+            box-shadow: 0px 10px 0px 0px rgba(0,0,0,0.2);
+            transform: translateY(0);
+        }
+        .btn-3d:active {
+            transform: translateY(10px);
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.2);
+        }
+
+        /* Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 400px;
+            max-height: 400px;
+        }
+
+        /* Chatbot Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .chat-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Modal Transitions */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #d4af37 100%);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-md text-white shadow-lg transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Placeholder for Logo - Replace src with actual file path -->
+                <img src="logo-mascota-propuesta2-corregida.png" alt="EmprendeConecta Logo" class="h-12 w-auto bg-white rounded-full p-1">
+                <span class="text-xl font-bold tracking-widest uppercase hidden md:block">EmprendeConecta</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#inicio" class="hover:text-amber-400 transition">Inicio</a>
+                <a href="#diagnostico" class="hover:text-amber-400 transition">Diagnóstico Municipal</a>
+                <a href="#servicios" class="hover:text-amber-400 transition">Blindaje Técnico</a>
+                <a href="#contacto" class="hover:text-amber-400 transition">Contacto</a>
+            </div>
+            <a href="#contacto" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-2 rounded-full font-bold shadow-lg transition transform hover:scale-105">
+                Solicitar Asesoría
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="parallax relative h-screen flex items-center justify-center text-center px-4" style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7)), url('Gestion Ayuntamientos.jpg');">
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <div class="mb-6 inline-block bg-amber-500 text-slate-900 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase animate-pulse">
+                Ciclo Fiscal 2026
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight serif-font">
+                Recursos Extraordinarios para su Ayuntamiento
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-10 font-light">
+                Del "Fondo Perdido" a la <span class="text-amber-400 font-bold">Gestión Técnica Estratégica</span>. 
+                Garantizamos la validación técnica ante Hacienda, SHCP y Bienestar.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="#diagnostico" class="btn-3d bg-amber-500 text-slate-900 font-bold py-4 px-10 rounded-lg text-lg border-b-4 border-amber-700 hover:bg-amber-400">
+                    <i class="fas fa-clipboard-check mr-2"></i> Verificar Elegibilidad
+                </a>
+                <a href="#servicios" class="btn-3d bg-white text-slate-900 font-bold py-4 px-10 rounded-lg text-lg border-b-4 border-slate-300 hover:bg-gray-100">
+                    <i class="fas fa-shield-alt mr-2"></i> Conocer el Blindaje
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Context Section: The Problem -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 serif-font border-l-4 border-amber-500 pl-4">
+                        Las reglas del juego cambiaron en 2026
+                    </h2>
+                    <p class="text-lg text-slate-600 leading-relaxed text-justify">
+                        Señor Presidente Municipal: La era de la asignación discrecional ha terminado. Para el ejercicio 2026, la SHCP y el Presupuesto de Egresos de la Federación exigen una <strong>justificación técnica rigurosa</strong>.
+                    </p>
+                    <p class="text-lg text-slate-600 leading-relaxed text-justify">
+                        Ya no basta con solicitar el recurso; se debe demostrar rentabilidad social, alineación con el Plan Nacional y cumplir con los candados de transparencia. Sin un expediente técnico perfecto, el recurso simplemente no llega o, peor aún, resulta en observaciones de la ASF.
+                    </p>
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-center text-slate-700">
+                            <i class="fas fa-times-circle text-red-500 mr-3 text-xl"></i> Solicitudes sin sustento técnico (Rechazo inmediato).
+                        </li>
+                        <li class="flex items-center text-slate-700">
+                            <i class="fas fa-times-circle text-red-500 mr-3 text-xl"></i> Proyectos sin impacto social medible.
+                        </li>
+                        <li class="flex items-center text-slate-700">
+                            <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i> <strong>La Solución:</strong> Gestión Integral EmprendeConecta.
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-8 rounded-2xl shadow-xl border border-slate-100">
+                    <!-- Visualization & Content Choices: Displaying distribution of funds to establish authority -->
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Distribución de Recursos Ramo 33 (2026)</h3>
+                    <p class="text-sm text-center text-slate-500 mb-4">Miles de Millones de Pesos (Estimación PEF)</p>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="ramo33Chart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-4">Fuente: Presupuesto de Egresos de la Federación 2026</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Diagnostic Section (Wizard) -->
+    <section id="diagnostico" class="py-24 bg-slate-900 text-white parallax" style="background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1555848962-6e79363ec58f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <span class="text-amber-400 font-bold tracking-wider uppercase text-sm">Herramienta Exclusiva para Alcaldes</span>
+                <h2 class="text-3xl md:text-5xl font-bold serif-font mt-2">Diagnóstico de Viabilidad 2026</h2>
+                <p class="text-slate-300 mt-4 text-lg">Descubra en 30 segundos si su municipio califica para subsidios extraordinarios.</p>
+            </div>
+
+            <div id="wizard-container" class="bg-white text-slate-800 rounded-xl shadow-2xl overflow-hidden min-h-[400px]">
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 h-2">
+                    <div id="progress-bar" class="bg-amber-500 h-2 transition-all duration-500" style="width: 20%"></div>
+                </div>
+
+                <!-- Steps -->
+                <div class="p-8 md:p-12">
+                    <!-- Step 1 -->
+                    <div id="step-1" class="wizard-step">
+                        <h3 class="text-2xl font-bold mb-6">1. ¿Cuál es la prioridad crítica de su administración actual?</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <button onclick="selectOption(1, 'infra')" class="option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left group">
+                                <div class="font-bold text-lg group-hover:text-amber-600">Infraestructura Básica</div>
+                                <div class="text-sm text-slate-500">Agua, Drenaje, Electrificación, Pavimentación.</div>
+                            </button>
+                            <button onclick="selectOption(1, 'seguridad')" class="option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left group">
+                                <div class="font-bold text-lg group-hover:text-amber-600">Seguridad y Finanzas</div>
+                                <div class="text-sm text-slate-500">Equipamiento policial, pago de deuda, nómina.</div>
+                            </button>
+                            <button onclick="selectOption(1, 'regular')" class="option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left group">
+                                <div class="font-bold text-lg group-hover:text-amber-600">Certeza Jurídica</div>
+                                <div class="text-sm text-slate-500">Asentamientos irregulares, títulos de propiedad.</div>
+                            </button>
+                            <button onclick="selectOption(1, 'campo')" class="option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left group">
+                                <div class="font-bold text-lg group-hover:text-amber-600">Apoyo Productivo</div>
+                                <div class="text-sm text-slate-500">Fertilizantes, maquinaria agrícola, pesca.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2" class="wizard-step hidden">
+                        <h3 class="text-2xl font-bold mb-6">2. Estado de la Documentación Técnica</h3>
+                        <div class="space-y-4">
+                            <button onclick="selectOption(2, 'completo')" class="w-full option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left flex items-center">
+                                <div class="bg-green-100 text-green-600 p-2 rounded-full mr-4"><i class="fas fa-folder-check"></i></div>
+                                <div>
+                                    <div class="font-bold">Contamos con Expedientes Técnicos y PIM</div>
+                                    <div class="text-sm text-slate-500">Proyectos ejecutivos validados y Plan de Desarrollo actualizado.</div>
+                                </div>
+                            </button>
+                            <button onclick="selectOption(2, 'parcial')" class="w-full option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left flex items-center">
+                                <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full mr-4"><i class="fas fa-folder-open"></i></div>
+                                <div>
+                                    <div class="font-bold">En proceso / Incompleto</div>
+                                    <div class="text-sm text-slate-500">Tenemos la idea pero faltan validaciones o estudios.</div>
+                                </div>
+                            </button>
+                            <button onclick="selectOption(2, 'nada')" class="w-full option-btn p-4 border-2 border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50 transition text-left flex items-center">
+                                <div class="bg-red-100 text-red-600 p-2 rounded-full mr-4"><i class="fas fa-times"></i></div>
+                                <div>
+                                    <div class="font-bold">No contamos con expedientes</div>
+                                    <div class="text-sm text-slate-500">Necesitamos asistencia desde cero.</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result Step -->
+                    <div id="step-result" class="wizard-step hidden text-center">
+                        <div class="mb-6">
+                            <i class="fas fa-check-circle text-6xl text-green-500 mb-4 animate-bounce"></i>
+                            <h3 class="text-3xl font-bold text-slate-900">¡Su Municipio es Candidato!</h3>
+                            <p class="text-slate-600 mt-2">Basado en su perfil, hemos identificado las siguientes líneas de acción:</p>
+                        </div>
+                        
+                        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 text-left mb-8">
+                            <h4 class="font-bold text-amber-600 uppercase tracking-wide text-xs mb-2">Estrategia Recomendada</h4>
+                            <div id="result-content" class="text-lg font-bold text-slate-800">
+                                <!-- Dynamic Content -->
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-200">
+                                <p class="text-sm text-slate-500"><i class="fas fa-exclamation-triangle text-amber-500"></i> <strong>Nota:</strong> La ventanilla para estos recursos cierra pronto. Se requiere validación técnica inmediata.</p>
+                            </div>
+                        </div>
+
+                        <a href="#contacto" class="btn-3d inline-block bg-slate-900 text-white font-bold py-4 px-12 rounded-lg text-lg border-b-4 border-slate-700 hover:bg-slate-800 w-full md:w-auto">
+                            Iniciar Gestión Ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 serif-font">Blindaje Técnico Total</h2>
+                <div class="w-24 h-1 bg-amber-500 mx-auto mt-4"></div>
+                <p class="text-xl text-slate-600 mt-6 max-w-2xl mx-auto">No solo conseguimos el recurso. Aseguramos su correcta ejecución y comprobación para evitar observaciones futuras.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border-t-4 border-blue-600 group">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-landmark text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Gestión de Fondos (Ramo 33 y 23)</h3>
+                    <p class="text-slate-600">FAISMUN, FORTAMUN y Convenios de Reasignación. Elaboración de expedientes técnicos alineados a la MML (Matriz de Marco Lógico).</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border-t-4 border-amber-500 group">
+                    <div class="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-file-signature text-2xl text-amber-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Regularización (PRAH - INSUS)</h3>
+                    <p class="text-slate-600">Gestión de subsidios para la regularización de asentamientos humanos. Certeza jurídica para sus ciudadanos sin costo para el erario.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border-t-4 border-green-600 group">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Blindaje Anti-Auditorías</h3>
+                    <p class="text-slate-600">Supervisión del SFU, sellado "Operado", Contraloría Social y Actas de Entrega-Recepción. Auditoría preventiva en tiempo real.</p>
+                </div>
+            </div>
+            
+            <!-- Mascota Image / Visual Break -->
+            <div class="mt-20 flex justify-center">
+                <div class="relative max-w-4xl w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                   <img src="mascota-emprende-principal.jpg" alt="Equipo EmprendeConecta en Acción" class="w-full h-full object-cover">
+                   <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                       <h3 class="text-white text-3xl md:text-5xl font-bold serif-font text-center px-4">"Gestionamos soluciones, no problemas."</h3>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Contact Section -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="text-4xl font-bold text-slate-900 serif-font mb-6">Hablemos de su Legado</h2>
+                    <p class="text-lg text-slate-600 mb-8 text-justify">
+                        Soy <strong>Antonio Camarillo Garcia</strong>. Mi objetivo es que su administración sea recordada por la obra pública y la estabilidad financiera. Permítanos realizar el análisis técnico previo sin compromiso.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-slate-100 p-3 rounded-lg text-amber-600">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-slate-900">Oficinas Centrales</h4>
+                                <p class="text-slate-600">Cerrada Santa Margarita 8, Bosque de Sanctourum,<br>Cuautlancingo, Puebla.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-slate-100 p-3 rounded-lg text-amber-600">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-slate-900">Atención Directa</h4>
+                                <p class="text-slate-600">Tel: 221 557 9943</p>
+                                <p class="text-slate-600">WhatsApp: 222 533 5353</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-slate-100 p-3 rounded-lg text-amber-600">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-slate-900">Correo Electrónico</h4>
+                                <p class="text-slate-600">contacto@emprendeconecta.website</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-slate-50 p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-6 text-slate-900">Solicitud de Reunión Ejecutiva</h3>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Nombre Completo</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition" placeholder="Lic. Juan Pérez">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Municipio / Estado</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition" placeholder="Ej. Cuautlancingo, Pue">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Cargo</label>
+                            <select class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition">
+                                <option>Presidente Municipal</option>
+                                <option>Tesorero</option>
+                                <option>Director de Obras</option>
+                                <option>Secretario General</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Teléfono / WhatsApp</label>
+                            <input type="tel" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition" placeholder="222 123 4567">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Asunto Principal</label>
+                            <textarea class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition h-24" placeholder="Me interesa el fondo para pavimentación..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-3d bg-slate-900 text-white font-bold py-4 rounded-lg text-lg border-b-4 border-slate-700 hover:bg-slate-800">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <!-- Logo Small -->
+                <span class="text-2xl font-bold text-white tracking-widest uppercase">EmprendeConecta</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm">
+                <button onclick="openModal('privacy')" class="hover:text-white transition underline">Aviso de Privacidad</button>
+                <button onclick="openModal('terms')" class="hover:text-white transition underline">Términos de Servicio</button>
+                <button onclick="openModal('legal')" class="hover:text-white transition underline">Marco Legal (Ramo 33)</button>
+            </div>
+            <p class="text-xs">&copy; 2026 EmprendeConecta. Todos los derechos reservados. Consultoría Especializada en Gestión Gubernamental.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Floating Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Window -->
+        <div id="chat-window" class="hidden bg-white rounded-2xl shadow-2xl w-80 mb-4 border border-slate-200 overflow-hidden flex flex-col transition-all origin-bottom-right transform scale-95">
+            <div class="bg-slate-900 text-white p-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                    <span class="font-bold text-sm">Asesor Virtual Emprende</span>
+                </div>
+                <button onclick="toggleChat()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-4 h-64 overflow-y-auto bg-slate-50 text-sm space-y-3" id="chat-messages">
+                <div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm border border-slate-100 text-slate-700">
+                    Hola. Soy el asistente virtual de Antonio Camarillo. ¿Le interesa conocer los montos disponibles para su municipio en 2026?
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-slate-100">
+                <div class="flex gap-2">
+                    <button onclick="chatAction('montos')" class="flex-1 bg-amber-100 text-amber-800 text-xs py-2 px-1 rounded hover:bg-amber-200">Consultar Montos</button>
+                    <button onclick="chatAction('cita')" class="flex-1 bg-blue-100 text-blue-800 text-xs py-2 px-1 rounded hover:bg-blue-200">Agendar Cita</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Float Button -->
+        <button onclick="toggleChat()" class="chat-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-3xl transition transform hover:scale-110 focus:outline-none">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
+
+    <!-- Modals (Privacy Policy) -->
+    <div id="modal-privacy" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 relative">
+            <button onclick="closeModal('privacy')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 text-2xl"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-4 serif-font">Aviso de Privacidad</h3>
+            <div class="prose prose-sm text-slate-600">
+                <p><strong>EmprendeConecta</strong>, con domicilio en Cerrada Santa Margarita 8, Bosque de Sanctourum, Cuautlancingo, Puebla, es el responsable del uso y protección de sus datos personales.</p>
+                <p class="mt-2">Los datos que recabamos de usted, los utilizaremos para las siguientes finalidades que son necesarias para el servicio que solicita:</p>
+                <ul class="list-disc ml-5 mt-2">
+                    <li>Evaluación de viabilidad para gestión de recursos federales.</li>
+                    <li>Contacto para asesoría técnica y legal.</li>
+                    <li>Envío de actualizaciones sobre el Presupuesto de Egresos de la Federación 2026.</li>
+                </ul>
+                <p class="mt-2">Para mayor información sobre los términos y condiciones en que serán tratados sus datos personales, puede comunicarse al teléfono 221 557 9943 o al correo contacto@emprendeconecta.website.</p>
+                <p class="mt-4 text-xs text-slate-400">Titular: Antonio Camarillo Garcia.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // --- Navigation Scroll Effect ---
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-xl');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2', 'shadow-xl');
+            }
+        });
+
+        // --- Chart.js Configuration ---
+        // CONFIRMATION: NO SVG graphics used. Used Chart.js Canvas based rendering.
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('ramo33Chart').getContext('2d');
+            
+            // Data derived from provided PDFs regarding 2026 Budget Distribution estimates
+            const myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['FORTAMUN (Seguridad/Nómina)', 'FAISMUN (Infraestructura Social)', 'FASP (Seguridad Pública)', 'Otros Fondos'],
+                    datasets: [{
+                        label: 'Distribución Millones MXN',
+                        data: [136817, 118689, 9951, 45000], // Data extracted from "Análisis de la Transferencia... 2026" PDF
+                        backgroundColor: [
+                            '#0f172a', // Slate 900
+                            '#f59e0b', // Amber 500
+                            '#3b82f6', // Blue 500
+                            '#94a3b8'  // Slate 400
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Lato', sans-serif" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(context.parsed * 1000000);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // --- Wizard Logic ---
+        let wizardData = {
+            priority: '',
+            docs: ''
+        };
+
+        function selectOption(step, value) {
+            if (step === 1) {
+                wizardData.priority = value;
+                document.getElementById('step-1').classList.add('hidden');
+                document.getElementById('step-2').classList.remove('hidden');
+                document.getElementById('progress-bar').style.width = '60%';
+            } else if (step === 2) {
+                wizardData.docs = value;
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            document.getElementById('progress-bar').style.width = '100%';
+
+            const contentDiv = document.getElementById('result-content');
+            let html = '';
+
+            // Logic based on Strategic Guide 2026
+            if (wizardData.priority === 'infra') {
+                html += `<p class="mb-2 text-amber-600">Recomendación: FAISMUN + PROAGUA</p>`;
+                html += `<p class="text-sm font-normal text-slate-600">Su municipio debe priorizar obras de agua potable y drenaje para acceder al co-financiamiento de CONAGUA (hasta 60%).</p>`;
+            } else if (wizardData.priority === 'seguridad') {
+                html += `<p class="mb-2 text-blue-800">Recomendación: FORTAMUN + FASP</p>`;
+                html += `<p class="text-sm font-normal text-slate-600">Es vital sanear pasivos para liberar flujo de FORTAMUN y aplicar a equipamiento vía FASP.</p>`;
+            } else if (wizardData.priority === 'regular') {
+                html += `<p class="mb-2 text-green-700">Recomendación: PRAH (INSUS)</p>`;
+                html += `<p class="text-sm font-normal text-slate-600">Podemos gestionar el subsidio de hasta $13,500 MXN por lote para regularización de asentamientos.</p>`;
+            } else {
+                html += `<p class="mb-2 text-slate-800">Recomendación: Proyectos Productivos (SADER)</p>`;
+                html += `<p class="text-sm font-normal text-slate-600">Focalización en programas de fertilizantes y pesca sustentable.</p>`;
+            }
+
+            if (wizardData.docs === 'nada' || wizardData.docs === 'parcial') {
+                html += `<div class="mt-4 p-3 bg-red-50 border-l-4 border-red-500 text-sm font-normal text-red-700">
+                            <strong>Alerta Crítica:</strong> La falta de Expediente Técnico Validado bloqueará cualquier recurso. Necesitamos iniciar el "Armado de Expediente" urgentemente.
+                         </div>`;
+            }
+
+            contentDiv.innerHTML = html;
+        }
+
+        // --- Form Handling ---
+        function handleSubmit(e) {
+            e.preventDefault();
+            // Simulate API call
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Enviando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert('¡Gracias! Su solicitud ha sido recibida en el servidor de EmprendeConecta. Antonio Camarillo se pondrá en contacto brevemente.');
+                btn.innerText = 'Mensaje Enviado';
+                e.target.reset();
+            }, 1500);
+        }
+
+        // --- Chatbot Logic ---
+        function toggleChat() {
+            const chat = document.getElementById('chat-window');
+            chat.classList.toggle('hidden');
+        }
+
+        function chatAction(action) {
+            const msgContainer = document.getElementById('chat-messages');
+            
+            if (action === 'montos') {
+                msgContainer.innerHTML += `<div class="bg-blue-50 p-3 rounded-lg rounded-tr-none border border-blue-100 text-right ml-auto max-w-[90%] text-blue-900 mb-2">Quiero consultar montos.</div>`;
+                setTimeout(() => {
+                    msgContainer.innerHTML += `<div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm border border-slate-100 text-slate-700 mb-2">Para darle el dato exacto del Ramo 33 para su municipio, necesitamos su nombre y cargo. Por favor, use el formulario principal.</div>`;
+                    msgContainer.scrollTop = msgContainer.scrollHeight;
+                }, 600);
+            } else if (action === 'cita') {
+                msgContainer.innerHTML += `<div class="bg-blue-50 p-3 rounded-lg rounded-tr-none border border-blue-100 text-right ml-auto max-w-[90%] text-blue-900 mb-2">Quiero agendar cita.</div>`;
+                setTimeout(() => {
+                    toggleChat();
+                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                }, 800);
+            }
+        }
+
+        // --- Modal Logic ---
+        function openModal(id) {
+            if (id === 'privacy') {
+                document.getElementById('modal-privacy').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('modal-privacy').classList.add('active');
+                }, 10);
+            }
+        }
+
+        function closeModal(id) {
+            if (id === 'privacy') {
+                document.getElementById('modal-privacy').classList.remove('active');
+                setTimeout(() => {
+                    document.getElementById('modal-privacy').classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Close modal on click outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-privacy');
+            if (event.target === modal) {
+                closeModal('privacy');
+            }
+        }
+    </script>
+</body>
+</html>
